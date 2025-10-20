@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Drive X - Fleet X</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+               --primary: #3D5A80;    /* Untuk header, judul, tombol utama */
+    --secondary: #7bcaf8;   /* Untuk section background, card */
+    --accent: #85e4e7;     /* Untuk highlight, background light */
+    --highlight: #EE6C4D;  /* Untuk CTA buttons, aksen penting */
+    --light: #F0F4F8;      /* Untuk background utama */
+    --gray: #8D99AE;       /* Untuk text sekunder, border */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--highlight);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--highlight);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 100px 0 20px;
+            background-color: white;
+        }
+        
+        .breadcrumb ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .breadcrumb ul li {
+            margin-right: 10px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .breadcrumb ul li:after {
+            content: ">";
+            margin-left: 10px;
+        }
+        
+        .breadcrumb ul li:last-child:after {
+            content: "";
+        }
+        
+        .breadcrumb ul li a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .breadcrumb ul li:last-child {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        /* Product Detail */
+        .product-detail {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+        
+        .product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 30px;
+        }
+        
+        .product-gallery {
+            position: relative;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 400px;
+            background-color: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+       .thumbnail-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    background-color: var(--light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+    overflow: hidden; /* Penting untuk gambar */
+}
+
+.thumbnail.active {
+    border-color: var(--highlight);
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Agar gambar tidak terdistorsi */
+    border-radius: 6px;
+}
+
+.thumbnail:hover {
+    transform: scale(1.05);
+    border-color: var(--accent);
+}
+        
+        .product-info {
+            padding: 10px 0;
+        }
+        
+        .product-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .stars {
+            color: #ffc107;
+            margin-right: 10px;
+        }
+        
+        .rating-count {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--highlight);
+            margin-bottom: 20px;
+        }
+        
+        .product-description {
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+        
+        .product-features {
+            margin-bottom: 25px;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-list li i {
+            color: var(--highlight);
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .purchase-options {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
+        .option-group {
+            margin-bottom: 15px;
+        }
+        
+        .option-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            max-width: 150px;
+        }
+        
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .quantity-input {
+            width: 70px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-left: none;
+            border-right: none;
+            font-size: 1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--highlight);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn:hover {
+            background-color: #f75c09;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Product Tabs */
+        .product-tabs {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+        
+        .tab-headers {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tab-header {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray);
+            transition: all 0.3s;
+        }
+        
+        .tab-header.active {
+            color: var(--highlight);
+            border-bottom: 2px solid var(--highlight);
+        }
+        
+        .tab-content {
+            padding: 30px;
+        }
+        
+        .tab-pane {
+            display: none;
+        }
+        
+        .tab-pane.active {
+            display: block;
+        }
+        
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .specs-table tr {
+            border-bottom: 1px solid #eee;
+        }
+        
+        .specs-table td {
+            padding: 12px 15px;
+        }
+        
+        .specs-table td:first-child {
+            font-weight: 500;
+            color: var(--primary);
+            width: 30%;
+        }
+        
+        .reviews-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .review-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .reviewer-name {
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .review-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .review-rating {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+        
+        .review-text {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        /* Related Products */
+        .related-products {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-img {
+            height: 180px;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .product-content {
+            padding: 15px;
+        }
+        
+        .product-card-title {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .product-card-price {
+            font-weight: 700;
+            color: var(--highlight);
+            font-size: 1.2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--highlight);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--highlight);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--highlight);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 20px 0;
+                text-align: center;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .product-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .tab-headers {
+                flex-wrap: wrap;
+            }
+            
+            .tab-header {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">Fleet<span>X</span></a>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="website.html">Beranda</a></li>
+                    <li><a href="produk.html">Produk</a></li>
+                    <li><a href="website.html#testimoni">Testimoni</a></li>
+                    <li><a href="website.html#kontak">Kontak</a></li>
+                    <li><a href="faq.html" class="active">Bantuan</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="website.html">Beranda</a></li>
+                <li><a href="produk.html">Produk</a></li>
+                <li>Smart Drive X</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Product Detail -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-container">
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="images/imgmock.png" alt="Smart Drive X">
+                    </div>
+                    <div class="thumbnail-container">
+                        <div class="thumbnail active">
+                            <img src="images/imgmock.png" alt="Smart Drive X">
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/smd.png" alt="Smart Drive X">
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/speaker.png" alt="Smart Drive X">
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/gps.png" alt="Smart Drive X">
+                        </div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h1 class="product-title">Smart Drive X</h1>
+                    <div class="product-rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <div class="rating-count">(4.7/5 - 128 ulasan)</div>
+                    </div>
+                    <div class="product-price">Rp 2.500.000</div>
+                    <p class="product-description">
+                        FleetX SmartDrive Companion adalah perangkat AIoT pendamping berkendara yang menganalisis performa mobil secara real-time, memberi peringatan dini, dan menyediakan saran pintar melalui asisten suara AI. Dilengkapi port USB-A & USB-C, alat ini kompatibel untuk semua jenis mobil, menjadikannya teman berkendara cerdas yang praktis, interaktif, dan aman.
+                    </p>
+                    
+                    <div class="product-features">
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Teknologi AI untuk optimasi daya, Perfomance Tracker, GPS Navigator, Smart Climate Control.</li>
+                            <li><i class="fas fa-check"></i> Masa pakai hingga 5 tahun</li>
+                            <li><i class="fas fa-check"></i> Kompatibel dengan semua jenis mobil</li>
+                            <li><i class="fas fa-check"></i> Garansi 3 tahun</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="purchase-options">
+                        <div class="option-group">
+                            <label for="quantity">Jumlah:</label>
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" id="quantity" class="quantity-input" value="1" min="1" max="10">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="option-group">
+                            <label>Stok: <span style="color: var(--highlight); font-weight: 700;">Tersedia</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-cart"><i class="fas fa-shopping-cart"></i> Tambah ke Keranjang</button>
+                        <button class="btn btn-buy"><i class="fas fa-bolt"></i> Beli Sekarang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Tabs -->
+    <section class="product-tabs">
+        <div class="container">
+            <div class="tab-headers">
+                <div class="tab-header active" data-tab="description">Deskripsi</div>
+                <div class="tab-header" data-tab="specs">Spesifikasi</div>
+                <div class="tab-header" data-tab="reviews">Ulasan (128)</div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="description">
+                    <h3>Tentang Smart Drive X</h3>
+                    <p>SmartDrive X adalah perangkat AIoT yang berfungsi sebagai asisten cerdas kendaraan, dirancang untuk meningkatkan efisiensi, kenyamanan, dan keamanan saat berkendara.
+Bentuknya ringkas seperti USB-A/USB-C card reader dengan built-in speaker, tombol kontrol suara & volume, serta dukungan Bluetooth TWS untuk koneksi ke speaker atau headset nirkabel.
+Secara fungsi, SmartDrive X dapat disebut sebagai “Alexa untuk kendaraan”, karena mampu memberikan perintah suara, informasi, hingga kontrol sistem kendaraan secara pintar dan interaktif.</p>
+                    
+                    <h4>Fitur Utama:</h4>
+                    <ul>
+                        <li><strong>AI Performance Tracker:</strong> Menganalisis performa kendaraan secara real-time, termasuk konsumsi bahan bakar, suhu mesin, dan kondisi baterai.</li>
+                        <li><strong>AI Voice Assistant:</strong> Memberikan respon cerdas terhadap perintah suara seperti membuka navigasi, memutar musik, atau mengecek kondisi mobil—semua hands-free.</li>
+                        <li><strong>Universal Compatibility (USB-A & USB-C):</strong> Kompatibel untuk semua jenis kendaraan modern, baik mobil bensin, hybrid, maupun listrik.</li>
+                        <li><strong>Smart Climate Control:</strong> Mengatur suhu kabin secara otomatis sesuai preferensi pengemudi, mendeteksi cuaca luar, dan menyesuaikan ventilasi untuk kenyamanan maksimal.</li>
+                        <li><strong>GPS Smart Navigator:</strong> Menyediakan navigasi akurat dengan panduan suara, rekomendasi rute tercepat, dan integrasi dengan peta AI yang memperhitungkan kondisi lalu lintas.</li>
+                    </ul>
+                    
+                    <h4>Keunggulan:</h4>
+                    <p>Menggabungkan AI, analisis performa, navigasi pintar, dan kontrol suara dalam satu perangkat ringkas yang membuat pengalaman berkendara lebih efisien, aman, dan interaktif.</p>
+                </div>
+                
+                <div class="tab-pane" id="specs">
+                    <table class="specs-table">
+                        <tr>
+                            <td>Kapasitas</td>
+                            <td>70Ah</td>
+                        </tr>
+                        <tr>
+                            <td>Tegangan</td>
+                            <td>12V</td>
+                        </tr>
+                        <tr>
+                            <td>Teknologi</td>
+                            <td>Lithium-Ion dengan AI Optimization</td>
+                        </tr>
+                        <tr>
+                            <td>Waktu Pengisian</td>
+                            <td>2 jam (fast charging)</td>
+                        </tr>
+                        <tr>
+                            <td>Masa Pakai</td>
+                            <td>5 tahun (atau 1000 siklus pengisian)</td>
+                        </tr>
+                        <tr>
+                            <td>Berat</td>
+                            <td>8.5 kg</td>
+                        </tr>
+                        <tr>
+                            <td>Dimensi</td>
+                            <td>260mm x 170mm x 220mm</td>
+                        </tr>
+                        <tr>
+                            <td>Suhu Operasi</td>
+                            <td>-20°C hingga 60°C</td>
+                        </tr>
+                        <tr>
+                            <td>Garansi</td>
+                            <td>3 tahun</td>
+                        </tr>
+                        <tr>
+                            <td>Kompatibilitas</td>
+                            <td>Semua jenis kendaraan bermobil</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="tab-pane" id="reviews">
+                    <div class="reviews-container">
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="reviewer-name">Chia</div>
+                                <div class="review-date">15 Oktober 2025</div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="review-text">
+                                Sangat puas dengan Smart Drive X ini. Recommended!
+                            </div>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="reviewer-name">Ria</div>
+                                <div class="review-date">10 Oktober 2025</div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="review-text">
+                                Sudah 6 bulan menggunakan produk ini dan sangat senang dengan performanya. Aplikasi monitoringnya sangat membantu untuk menjaga kesehatan mobilku.
+                            </div>
+                        </div>
+                        
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="reviewer-name">Yudha</div>
+                                <div class="review-date">5 Oktober 2025</div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="review-text">
+                                Aku suka 'Alexa' mobilku!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4>Fleet X</h4>
+                    <p>Perusahaan otomotif teknologi terdepan yang menghadirkan solusi inovatif untuk masa depan transportasi.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Produk</h4>
+                    <ul>
+                        <li><a href="produk.html">Smart Drive X</a></li>
+                       
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Perusahaan</h4>
+                    <ul>
+                        <li><a href="website.html">Tentang Kami</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Bantuan</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Pusat Bantuan</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Fleet X. Semua Hak Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+
+        // Product Tabs
+        document.querySelectorAll('.tab-header').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab-header').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Quantity Selector
+        const quantityInput = document.querySelector('.quantity-input');
+        document.querySelector('.quantity-btn.minus').addEventListener('click', function() {
+            if(parseInt(quantityInput.value) > 1) {
+                quantityInput.value = parseInt(quantityInput.value) - 1;
+            }
+        });
+        
+        document.querySelector('.quantity-btn.plus').addEventListener('click', function() {
+            if(parseInt(quantityInput.value) < 10) {
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+            }
+        });
+
+        // Thumbnail Gallery
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // In a real implementation, this would change the main image
+                // For this example, we'll just change the icon color
+                const icon = this.querySelector('i').className;
+                document.querySelector('.main-image i').className = icon;
+            });
+        });
+
+        // Add to Cart and Buy Now buttons
+        document.querySelector('.btn-cart').addEventListener('click', function() {
+            const quantity = document.getElementById('quantity').value;
+            alert(`Smart Drive X (${quantity} pcs) telah ditambahkan ke keranjang!`);
+        });
+        
+        document.querySelector('.btn-buy').addEventListener('click', function() {
+            const quantity = document.getElementById('quantity').value;
+            alert(`Terima kasih! Anda akan membeli Smart Drive X (${quantity} pcs). Silahkan lanjutkan ke proses pembayaran.`);
+        });
+    </script>
+</body>
+</html>

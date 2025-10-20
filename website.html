@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fleet X</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      :root {
+    --primary: #3D5A80;    /* Untuk header, judul, tombol utama */
+    --secondary: #7bcaf8;   /* Untuk section background, card */
+    --accent: #85e4e7;     /* Untuk highlight, background light */
+    --highlight: #EE6C4D;  /* Untuk CTA buttons, aksen penting */
+    --light: #F0F4F8;      /* Untuk background utama */
+    --gray: #8D99AE;       /* Untuk text sekunder, border */
+}
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--highlight);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--highlight);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 160px 0 100px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--highlight);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #f75c09;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Stats Section */
+        .stats {
+            background-color: var(--secondary);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            margin: 20px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--highlight);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1.1rem;
+        }
+        
+        /* Brands Section */
+        .brands {
+            padding: 80px 0;
+            background-color: var(--light);
+            text-align: center;
+        }
+        
+        .brands h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--primary);
+        }
+        
+        .brand-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .brand-logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            padding: 15px 25px;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Products Section */
+        .products {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            color: var(--primary);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-img {
+            height: 200px;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .product-content {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .product-desc {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-weight: 700;
+            color: var(--highlight);
+            font-size: 1.2rem;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+        
+        .author-info h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .contact-details {
+            margin-top: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+        }
+        
+        .contact-form {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--highlight);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--highlight);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--highlight);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 20px 0;
+                text-align: center;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Fleet<span>X</span></a>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="website.html">Beranda</a></li>
+                    <li><a href="produk.html">Produk</a></li>
+                    <li><a href="#testimoni">Testimoni</a></li>
+                    <li><a href="#kontak">Kontak</a></li>
+                    <li><a href="faq.html" class="active">Bantuan</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="beranda">
+        <div class="container">
+            <h1>Masa Depan Otomotif Teknologi</h1>
+            <p>Fleet X menghadirkan solusi otomotif canggih dengan teknologi terdepan untuk meningkatkan efisiensi dan pengalaman berkendara Anda.</p>
+            <a href="#pemesanan" class="btn">Pesan Sekarang</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">15,000+</div>
+                    <div class="stat-text">Pelanggan Puas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-text">Kota di Indonesia Tersedia</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-text">Tingkat Kepuasan</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section class="brands">
+        <div class="container">
+            <h2>Klien Terkenal Kami</h2>
+            <div class="brand-logos">
+                <div class="brand-logo">CLAIRO</div>
+                <div class="brand-logo">THE 1975</div>
+                <div class="brand-logo">Elon Musk</div>
+                <div class="brand-logo">Reality Club</div>
+                <div class="brand-logo">Perunggu</div>
+                <div class="brand-logo">The Cranberries</div>
+                <div class="brand-logo">Bruno Majors</div>
+            </div>
+            <p style="margin-top: 20px; font-style: italic;">Clairo, The 1975, Elon Musk, Reality Club, Perunggu, The Cranberries, dan Bruno Major pernah dan masih menggunakan produk kami</p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <div class="product-card">
+    <div class="product-img">
+        <i class="fas fa-car-battery"></i>
+    </div>
+    <div class="product-content">
+        <h3 class="product-title">Smart Drive X</h3>
+        <p class="product-desc">FleetX Smart Drive X adalah perangkat AIoT yang menganalisis performa mobil, memberi peringatan dini, dan menyarankan solusi cerdas lewat asisten suara AI.</p>
+        <div class="product-price">Rp 2.500.000</div>
+        
+        <!-- Tombol dengan styling lengkap -->
+        <div class="product-actions">
+            <a href="produk.html" class="btn btn-detail">
+                <i class="fas fa-info-circle"></i> Detail Produk
+            </a>
+            <button class="btn btn-cart">
+                <i class="fas fa-shopping-cart"></i> Keranjang
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+.product-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-detail {
+    background-color: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    flex: 2;
+}
+
+.btn-detail:hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+.btn-cart {
+    background-color: var(--highlight);
+    flex: 1;
+}
+
+.btn-cart:hover {
+    background-color: #d13453;
+}
+</style>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimoni">
+        <div class="container">
+            <h2 class="section-title">Apa Kata Pelanggan Kami</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Produk Fleet X benar-benar mengubah pengalaman berkendara saya. Teknologi yang mereka tawarkan sangat canggih dan mudah digunakan."</p>
+                    <div class="testimonial-author">
+                        <div class="author-img">AB</div>
+                        <div class="author-info">
+                            <h4>Abi</h4>
+                            <p>Pengusaha Transportasi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Saya sudah menggunakan Smart Drive X selama 2 tahun dan performanya masih seperti baru. Sangat hemat dan efisien!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-img">CU</div>
+                        <div class="author-info">
+                            <h4>Cuwa</h4>
+                            <p>Pemilik Rental Mobil</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Smart Drive X membuat perjalanan panjang saya menjadi lebih nyaman dan aman. Teknologi yang benar-benar worth it!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-img">MO</div>
+                        <div class="author-info">
+                            <h4>Monika</h4>
+                            <p>Sales Executive</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="kontak">
+        <div class="container">
+            <h2 class="section-title">Hubungi Kami</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Informasi Kontak</h3>
+                    <p>Kami siap membantu Anda dengan solusi otomotif teknologi terbaik. Jangan ragu untuk menghubungi kami.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <p>Jl. Kalcer Jatem Janggal, 219.</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <p>+62 812 8801 3657</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p>info@fleetx.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="pemesanan">
+                        <div class="form-group">
+                            <label for="name">Nama Lengkap</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Nomor Telepon</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product">Produk yang Diminati</label>
+                            <select id="product" class="form-control" required>
+                                <option value="">Pilih Produk</option>
+                                <option value="smart-battery">Smart Drive X</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Pesan</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4>Fleet X</h4>
+                    <p>Perusahaan otomotif teknologi terdepan yang menghadirkan solusi inovatif untuk masa depan transportasi.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Produk</h4>
+                    <ul>
+                        <li><a href="produk.html">Smart Drive X</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Perusahaan</h4>
+                    <ul>
+                        <li><a href="website.html">Tentang Kami</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Bantuan</h4>
+                    <ul>
+                       <li><a href="faq.html#faq">FAQ</a></li>
+                        <li><a href="faq.html#pusat-bantuan">Pusat Bantuan</a></li>
+                        <li><a href="faq.html#kebijakan-privasi">Kebijakan Privasi</a></li>
+                        <li><a href="faq.html#syarat-ketentuan">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Fleet X. Semua Hak Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu after clicking
+                    document.querySelector('nav ul').classList.remove('active');
+                }
+            });
+        });
+
+        // Form Submission
+        document.getElementById('pemesanan').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Terima kasih! Pesanan Anda telah diterima. Tim kami akan menghubungi Anda segera.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bantuan & Kebijakan - Fleet X</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+               --primary: #3D5A80;    /* Untuk header, judul, tombol utama */
+    --secondary: #7bcaf8;   /* Untuk section background, card */
+    --accent: #85e4e7;     /* Untuk highlight, background light */
+    --highlight: #EE6C4D;  /* Untuk CTA buttons, aksen penting */
+    --light: #F0F4F8;      /* Untuk background utama */
+    --gray: #8D99AE;       /* Untuk text sekunder, border */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--highlight);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--highlight);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 100px 0 20px;
+            background-color: white;
+        }
+        
+        .breadcrumb ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .breadcrumb ul li {
+            margin-right: 10px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .breadcrumb ul li:after {
+            content: ">";
+            margin-left: 10px;
+        }
+        
+        .breadcrumb ul li:last-child:after {
+            content: "";
+        }
+        
+        .breadcrumb ul li a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .breadcrumb ul li:last-child {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        .help-content {
+            padding: 40px 0 80px;
+        }
+        
+        .help-sidebar {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .help-sidebar h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        
+        .help-nav {
+            list-style: none;
+        }
+        
+        .help-nav li {
+            margin-bottom: 10px;
+        }
+        
+        .help-nav li a {
+            display: block;
+            padding: 12px 15px;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .help-nav li a:hover, .help-nav li a.active {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .help-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .help-section.active {
+            display: block;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 18px 20px;
+            background-color: var(--light);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .faq-question:hover {
+            background-color: #e9e9e9;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-toggle i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-toggle {
+            transition: transform 0.3s;
+        }
+        
+        .policy-content, .terms-content {
+            line-height: 1.8;
+        }
+        
+        .policy-content h3, .terms-content h3 {
+            color: var(--primary);
+            margin: 25px 0 15px;
+            font-size: 1.3rem;
+        }
+        
+        .policy-content p, .terms-content p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .policy-content ul, .terms-content ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .policy-content li, .terms-content li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .help-center-search {
+            background-color: var(--accent);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .help-center-search h2 {
+            margin-bottom: 20px;
+        }
+        
+        .search-box {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+        
+        .search-box button {
+            background-color: var(--highlight);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-box button:hover {
+            background-color: #f75c09;
+        }
+        
+        .contact-support {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-support h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .contact-support p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--highlight);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #f75c09;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--highlight);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--highlight);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--highlight);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 20px 0;
+                text-align: center;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .help-content {
+                padding: 20px 0 60px;
+            }
+            
+            .help-section {
+                padding: 25px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .help-layout {
+                display: grid;
+                grid-template-columns: 300px 1fr;
+                gap: 30px;
+            }
+            
+            .help-sidebar {
+                margin-bottom: 0;
+                position: sticky;
+                top: 100px;
+                height: fit-content;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-container">
+            <a href="website.html" class="logo">Fleet<span>X</span></a>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="website.html">Beranda</a></li>
+                    <li><a href="produk.html">Produk</a></li>
+                    <li><a href="website.html#testimoni">Testimoni</a></li>
+                    <li><a href="website.html#kontak">Kontak</a></li>
+                    <li><a href="faq.html" class="active">Bantuan</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="website.html">Beranda</a></li>
+                <li>Bantuan & Kebijakan</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="help-content">
+        <div class="container">
+            <div class="help-center-search">
+                <h2>Bagaimana kami dapat membantu Anda?</h2>
+                <div class="search-box">
+                    <input type="text" placeholder="Cari bantuan...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            
+            <div class="help-layout">
+                <div class="help-sidebar">
+                    <h3>Menu Bantuan</h3>
+                    <ul class="help-nav">
+                        <li><a href="#faq" class="active">FAQ</a></li>
+                        <li><a href="#pusat-bantuan">Pusat Bantuan</a></li>
+                        <li><a href="#kebijakan-privasi">Kebijakan Privasi</a></li>
+                        <li><a href="#syarat-ketentuan">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="help-sections">
+                    <!-- FAQ Section -->
+                    <div class="help-section active" id="faq-section">
+                        <h2 class="section-title">Pertanyaan yang Sering Diajukan (FAQ)</h2>
+                        
+                        <div class="faq-item active">
+                            <div class="faq-question">
+                                Apa itu FleetX Smart Drive X?
+                                <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>FleetX Smart Drive X adalah perangkat AIoT (Artificial Intelligence of Things) yang menganalisis performa mobil Anda secara real-time, memberikan peringatan dini untuk masalah potensial, dan menawarkan solusi cerdas melalui asisten suara AI.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Bagaimana cara memasang Smart Drive X?
+                                <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Pemasangan Smart Drive X sangat mudah. Anda dapat:</p>
+                                <ul>
+                                    <li>Datang ke bengkel resmi FleetX untuk pemasangan profesional</li>
+                                    <li>Meminta teknisi kami datang ke lokasi Anda</li>
+                                    <li>Memasang sendiri dengan panduan video yang kami sediakan</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Apakah Smart Drive X kompatibel dengan semua jenis mobil?
+                                <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Smart Drive X kompatibel dengan sebagian besar mobil produksi tahun 2000 ke atas yang memiliki port OBD-II. Untuk memastikan kompatibilitas, silakan hubungi tim support kami dengan menyertakan model dan tahun kendaraan Anda.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Berapa lama garansi untuk Smart Drive X?
+                                <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Kami memberikan garansi 1 tahun untuk perangkat Smart Drive X. Garansi mencakup kerusakan hardware yang bukan disebabkan oleh kesalahan pengguna atau bencana alam.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Bagaimana cara pembelian dan pengiriman?
+                                <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Anda dapat membeli Smart Drive X melalui:</p>
+                                <ul>
+                                    <li>Website resmi FleetX</li>
+                                    <li>Marketplace terkemuka (Tokopedia, Shopee, Blibli)</li>
+                                    <li>Dealer resmi FleetX di kota Anda</li>
+                                </ul>
+                                <p>Pengiriman dilakukan dalam 1-3 hari kerja untuk wilayah Jabodetabek, dan 3-7 hari kerja untuk luar Jabodetabek.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pusat Bantuan Section -->
+                    <div class="help-section" id="pusat-bantuan-section">
+                        <h2 class="section-title">Pusat Bantuan</h2>
+                        
+                        <div class="contact-support">
+                            <h3>Butuh Bantuan Lebih Lanjut?</h3>
+                            <p>Tim support kami siap membantu Anda 7 hari seminggu</p>
+                            <a href="website.html#kontak" class="btn">Hubungi Kami</a>
+                        </div>
+                        
+                        <h3>Panduan Penggunaan</h3>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Cara mengaktifkan Smart Drive X untuk pertama kali
+                                <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <ol>
+                                    <li>Pasang perangkat Smart Drive X ke port OBD-II kendaraan Anda</li>
+                                    <li>Download aplikasi FleetX dari App Store atau Google Play Store</li>
+                                    <li>Buat akun dan ikuti proses registrasi</li>
+                                    <li>Ikuti panduan pairing di aplikasi untuk menghubungkan perangkat</li>
+                                    <li>Smart Drive X siap digunakan!</li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Troubleshooting masalah umum
+                                <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="faq-answer">
+                                <p><strong>Perangkat tidak terdeteksi:</strong></p>
+                                <ul>
+                                    <li>Pastikan koneksi ke port OBD-II sudah tepat</li>
+                                    <li>Restart kendaraan Anda</li>
+                                </ul>
+                                
+                                <p><strong>Aplikasi tidak responsif:</strong></p>
+                                <ul>
+                                    <li>Tutup dan buka kembali aplikasi</li>
+                                    <li>Update aplikasi ke versi terbaru</li>
+                                    <li>Restart smartphone Anda</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <h3>Video Tutorial</h3>
+                        <p>Kunjungi channel YouTube kami untuk panduan video lengkap:</p>
+                        <a href="#" class="btn btn-outline"><i class="fab fa-youtube"></i> FleetX Tutorial Channel</a>
+                    </div>
+                    
+                    <!-- Kebijakan Privasi Section -->
+                    <div class="help-section" id="kebijakan-privasi-section">
+                        <h2 class="section-title">Kebijakan Privasi</h2>
+                        
+                        <div class="policy-content">
+                            <p>Terakhir diperbarui: 1 Oktober 2025</p>
+                            
+                            <h3>1. Informasi yang Kami Kumpulkan</h3>
+                            <p>Kami mengumpulkan informasi berikut untuk memberikan layanan terbaik:</p>
+                            <ul>
+                                <li>Data pribadi (nama, email, nomor telepon) saat registrasi</li>
+                                <li>Data kendaraan (model, tahun, VIN) untuk analisis performa</li>
+                                <li>Data penggunaan (performa kendaraan, kebiasaan mengemudi) untuk optimasi layanan</li>
+                                <li>Data lokasi (opsional) untuk fitur berbasis lokasi</li>
+                            </ul>
+                            
+                            <h3>2. Penggunaan Informasi</h3>
+                            <p>Data yang kami kumpulkan digunakan untuk:</p>
+                            <ul>
+                                <li>Menyediakan dan meningkatkan layanan FleetX</li>
+                                <li>Analisis performa kendaraan dan prediksi perawatan</li>
+                                <li>Komunikasi mengenai pembaruan produk dan layanan</li>
+                                <li>Personalisasi pengalaman pengguna</li>
+                            </ul>
+                            
+                            <h3>3. Berbagi Informasi</h3>
+                            <p>Kami tidak menjual atau menyewakan data pribadi Anda kepada pihak ketiga. Data hanya dapat dibagikan dalam kondisi berikut:</p>
+                            <ul>
+                                <li>Dengan persetujuan Anda</li>
+                                <li>Untuk mematuhi kewajiban hukum</li>
+                                <li>Dengan penyedia layanan yang membantu operasi kami (dengan perjanjian kerahasiaan)</li>
+                            </ul>
+                            
+                            <h3>4. Keamanan Data</h3>
+                            <p>Kami menerapkan langkah-langkah keamanan teknis dan organisasi yang sesuai untuk melindungi data pribadi Anda dari akses, pengungkapan, atau penggunaan yang tidak sah.</p>
+                            
+                            <h3>5. Hak Anda</h3>
+                            <p>Anda memiliki hak untuk:</p>
+                            <ul>
+                                <li>Mengakses data pribadi Anda</li>
+                                <li>Memperbaiki data yang tidak akurat</li>
+                                <li>Menghapus data pribadi Anda</li>
+                                <li>Menolak pemrosesan data tertentu</li>
+                            </ul>
+                            
+                            <h3>6. Kontak</h3>
+                            <p>Untuk pertanyaan tentang kebijakan privasi ini, silakan hubungi kami di privacy@fleetx.com</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Syarat & Ketentuan Section -->
+                    <div class="help-section" id="syarat-ketentuan-section">
+                        <h2 class="section-title">Syarat & Ketentuan</h2>
+                        
+                        <div class="terms-content">
+                            <p>Dengan mengakses dan menggunakan layanan FleetX, Anda setuju untuk terikat oleh syarat dan ketentuan berikut:</p>
+                            
+                            <h3>1. Penggunaan Layanan</h3>
+                            <p>Anda setuju untuk menggunakan layanan FleetX hanya untuk tujuan yang sah dan sesuai dengan ketentuan ini. Dilarang menggunakan layanan untuk:</p>
+                            <ul>
+                                <li>Aktivitas ilegal atau tidak sah</li>
+                                <li>Mengganggu atau mencoba mengganggu keamanan sistem</li>
+                                <li>Mengunggah konten berbahaya atau malware</li>
+                            </ul>
+                            
+                            <h3>2. Akun Pengguna</h3>
+                            <p>Anda bertanggung jawab untuk:</p>
+                            <ul>
+                                <li>Menjaga kerahasiaan informasi akun Anda</li>
+                                <li>Segera memberi tahu kami tentang penggunaan tidak sah atas akun Anda</li>
+                                <li>Memastikan informasi yang diberikan akurat dan terbaru</li>
+                            </ul>
+                            
+                            <h3>3. Hak Kekayaan Intelektual</h3>
+                            <p>Semua hak kekayaan intelektual terkait layanan FleetX, termasuk namun tidak terbatas pada perangkat lunak, desain, dan merek dagang, adalah milik FleetX atau pemberi lisensinya.</p>
+                            
+                            <h3>4. Pembatasan Tanggung Jawab</h3>
+                            <p>FleetX tidak bertanggung jawab atas:</p>
+                            <ul>
+                                <li>Kerusakan tidak langsung, insidental, atau konsekuensial</li>
+                                <li>Kehilangan data atau keuntungan</li>
+                                <li>Ketidakakuratan data yang disebabkan oleh faktor eksternal</li>
+                            </ul>
+                            
+                            <h3>5. Perubahan Layanan</h3>
+                            <p>Kami berhak untuk memodifikasi atau menghentikan layanan kapan saja tanpa pemberitahuan sebelumnya. Kami tidak bertanggung jawab jika modifikasi tersebut mempengaruhi kemampuan Anda untuk mengakses layanan.</p>
+                            
+                            <h3>6. Hukum yang Berlaku</h3>
+                            <p>Syarat dan ketentuan ini diatur oleh dan ditafsirkan sesuai dengan hukum Republik Indonesia. Setiap sengketa yang timbul akan diselesaikan di pengadilan yang berwenang di Jakarta.</p>
+                            
+                            <h3>7. Perubahan Syarat & Ketentuan</h3>
+                            <p>Kami dapat memperbarui syarat dan ketentuan ini dari waktu ke waktu. Perubahan akan diberitahukan melalui email atau pemberitahuan di aplikasi. Penggunaan berkelanjutan setelah perubahan berarti Anda menerima syarat dan ketentuan yang diperbarui.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4>Fleet X</h4>
+                    <p>Perusahaan otomotif teknologi terdepan yang menghadirkan solusi inovatif untuk masa depan transportasi.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Produk</h4>
+                    <ul>
+                        <li><a href="produk.html">Smart Drive X</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Perusahaan</h4>
+                    <ul>
+                        <li><a href="website.html">Tentang Kami</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Bantuan</h4>
+                    <ul>
+                        <li><a href="faq.html#faq">FAQ</a></li>
+                        <li><a href="faq.html#pusat-bantuan">Pusat Bantuan</a></li>
+                        <li><a href="faq.html#kebijakan-privasi">Kebijakan Privasi</a></li>
+                        <li><a href="faq.html#syarat-ketentuan">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Fleet X. Semua Hak Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Navigation between sections
+        document.querySelectorAll('.help-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and sections
+                document.querySelectorAll('.help-nav a').forEach(a => a.classList.remove('active'));
+                document.querySelectorAll('.help-section').forEach(section => section.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Show corresponding section
+                const targetId = this.getAttribute('href').substring(1);
+                document.getElementById(targetId + '-section').classList.add('active');
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.search-box button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-box input').value.toLowerCase();
+            if (searchTerm) {
+                // Simple search implementation - in a real app, this would be more sophisticated
+                alert('Pencarian untuk: ' + searchTerm + '\n\nFitur pencarian lengkap akan diimplementasikan dalam versi mendatang.');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
